@@ -54,7 +54,7 @@ function hostPrepareGame(gameId) {
         mySocketId : sock.id,
         gameId : gameId
     };
-    //console.log("All Players Present. Preparing game...");
+    console.log("All Players Present. Preparing game...");
     io.sockets.in(data.gameId).emit('beginNewGame', data);
 }
 
@@ -64,7 +64,8 @@ function hostPrepareGame(gameId) {
  */
 function hostStartGame(gameId) {
     console.log('Game Started.');
-    sendWord(0,gameId);
+    // sendWord(0,gameId);
+    playerStart(gameId);
 };
 
 /**
@@ -130,6 +131,10 @@ function playerAnswer(data) {
     // The player's answer is attached to the data object.  \
     // Emit an event with the answer so it can be checked by the 'Host'
     io.sockets.in(data.gameId).emit('hostCheckAnswer', data);
+}
+
+function playerStart (gameId) {
+    io.sockets.in(gameId).emit('gameHasStarted');
 }
 
 /**

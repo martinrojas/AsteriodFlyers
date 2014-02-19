@@ -27,6 +27,7 @@ jQuery(function ($) {
             IO.socket.on('beginNewGame', IO.beginNewGame );
             IO.socket.on('newWordData', IO.onNewWordData);
             IO.socket.on('hostCheckAnswer', IO.hostCheckAnswer);
+            IO.socket.on('gameHasStarted', IO.gameHasStarted);
             IO.socket.on('gameOver', IO.gameOver);
             IO.socket.on('error', IO.error );
         },
@@ -91,6 +92,15 @@ jQuery(function ($) {
                 App.Host.checkAnswer(data);
             }
         },
+
+        /**
+         * A player answered. If this is the host, check the answer.
+         * @param data
+         */
+        gameHasStarted : function(data) {
+            App.Player.onGameStart();
+        },
+
 
         /**
          * Let everyone know the game has ended.
@@ -164,7 +174,8 @@ jQuery(function ($) {
             App.$templateIntroScreen = $('#intro-screen-template').html();
             App.$templateNewGame = $('#create-game-template').html();
             App.$templateJoinGame = $('#join-game-template').html();
-            App.$hostGame = $('#host-game-template').html();
+            App.$hostGame = $('#main-screen-template').html();
+            App.$playerGame = $('#participant-screen-template').html();
         },
 
         /**
@@ -177,7 +188,7 @@ jQuery(function ($) {
             // Player
             App.$doc.on('click', '#btnJoinGame', App.Player.onJoinClick);
             App.$doc.on('click', '#btnStart',App.Player.onPlayerStartClick);
-            App.$doc.on('click', '.btnAnswer',App.Player.onPlayerAnswerClick);
+            App.$doc.on('click', '.btnClick',App.Player.onPlayerAnswerClick);
             App.$doc.on('click', '#btnPlayerRestart', App.Player.onPlayerRestart);
         },
 
@@ -191,7 +202,7 @@ jQuery(function ($) {
          */
         showInitScreen: function() {
             App.$gameArea.html(App.$templateIntroScreen);
-            App.doTextFit('.title');
+            // App.doTextFit('.title');
         },
 
 
@@ -253,7 +264,7 @@ jQuery(function ($) {
 
                 // Display the URL on screen
                 $('#gameURL').text(window.location.href);
-                App.doTextFit('#gameURL');
+                // App.doTextFit('#gameURL');
 
                 // Show the gameId / room id on screen
                 $('#spanNewGameCode').text(App.gameId);
@@ -280,7 +291,7 @@ jQuery(function ($) {
                 App.Host.numPlayersInRoom += 1;
 
                 // If two players have joined, start the game!
-                if (App.Host.numPlayersInRoom === 2) {
+                if (App.Host.numPlayersInRoom === 1) {
                     // console.log('Room is full. Almost ready!');
 
                     // Let the server know that two players are present.
@@ -294,8 +305,7 @@ jQuery(function ($) {
             gameCountdown : function() {
 
                 // Prepare the game screen with new HTML
-                App.$gameArea.html(App.$hostGame);
-                App.doTextFit('#hostWord');
+                App.$gameArea.html(App.$hostGame);                
 
                 // Begin the on-screen countdown timer
                 var $secondsLeft = $('#hostWord');
@@ -324,7 +334,7 @@ jQuery(function ($) {
             newWord : function(data) {
                 // Insert the new word into the DOM
                 $('#hostWord').text(data.word);
-                App.doTextFit('#hostWord');
+                // App.doTextFit('#hostWord');
 
                 // Update the data for the current round
                 App.Host.currentCorrectAnswer = data.answer;
@@ -394,7 +404,7 @@ jQuery(function ($) {
                 } else {
                     $('#hostWord').text( winner + ' Wins!!' );
                 }
-                App.doTextFit('#hostWord');
+                // App.doTextFit('#hostWord');
 
                 // Reset game data
                 App.Host.numPlayersInRoom = 0;
@@ -437,6 +447,10 @@ jQuery(function ($) {
                 App.$gameArea.html(App.$templateJoinGame);
             },
 
+            onGameStart: function () {
+                App.$gameArea.html(App.$playerGame);
+            },
+
             /**
              * The player entered their name and gameId (hopefully)
              * and clicked Start.
@@ -447,7 +461,7 @@ jQuery(function ($) {
                 // collect data to send to the server
                 var data = {
                     gameId : +($('#inputGameId').val()),
-                    playerName : $('#inputPlayerName').val() || 'anon'
+                    playerName : 'anon'
                 };
 
                 // Send the gameId and playerName to the server
@@ -574,7 +588,7 @@ jQuery(function ($) {
 
             // Display the starting time on the screen.
             $el.text(startTime);
-            App.doTextFit('#hostWord');
+            // App.doTextFit('#hostWord');
 
             // console.log('Starting Countdown...');
 
@@ -606,16 +620,16 @@ jQuery(function ($) {
          * @param el The parent element of some text
          */
         doTextFit : function(el) {
-            textFit(
-                $(el)[0],
-                {
-                    alignHoriz:true,
-                    alignVert:false,
-                    widthOnly:true,
-                    reProcess:true,
-                    maxFontSize:300
-                }
-            );
+            // textFit(
+            //     $(el)[0],
+            //     {
+            //         alignHoriz:true,
+            //         alignVert:false,
+            //         widthOnly:true,
+            //         reProcess:true,
+            //         maxFontSize:300
+            //     }
+            // );
         }
 
     };

@@ -7,26 +7,75 @@
 	<link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-	<div class="gameArea">
+	<div id="gameArea">
 		
 	</div>
 	<!-- Main Title Screen that appears when the page loads for the first time -->
 	<script id="intro-screen-template" type="text/template">
+		<div class="titleWrapper">
 
+            <div class="title">
+                Node / WebGL Demo
+            </div>
+
+            <div class="buttons">
+
+                <button id="btnCreateGame" class="btn left">CREATE</button>
+                <button id="btnJoinGame" class="btn right">JOIN</button>
+                <div style="clear:both"></div>
+            </div>
+
+        </div>
 	</script>
+
+	<script id="create-game-template" type="text/template">
+        <div class="createGameWrapper">
+
+            <div class="info">Open this site on your mobile device:</div>
+            <div id="gameURL" class="infoBig">Error!</div>
+
+            <div class="info">Then click <strong>JOIN</strong> and <br/> enter the following Game ID:</div>
+            <div id="spanNewGameCode" class="gameId">Error!</div>
+
+            <div id="playersWaiting"></div>
+        </div>
+    </script>
 	
+	<!-- This scrreen appears when a player clicks "JOIN" on the Title Screen -->
+    <script id="join-game-template" type="text/template">
+        <div class="joinGameWrapper">
+            
+            <div class="info">
+                <label for="inputGameId">Game ID:</label>
+                <input id="inputGameId" type="text"/>
+            </div>
+
+            <div class="info buttons">
+                <button id="btnStart" class="btn">Start</button>
+                <div id="playerWaitingMessage"></div>
+            </div>
+        </div>
+    </script>
+
 	<!-- Big Screen template -->
 	<script id="main-screen-template" type="text/template">		
 		
 	</script>
 	
 	<script id="participant-screen-template" type="text/template">
-
+		<div class="buttons">
+			<button class="btnClick btn" value="up">UP</button>
+			<button class="btnClick btn" value="down">DOWN</button>
+			<button class="btnClick btn" value="left">LEFT</button>
+			<button class="btnClick btn" value="right">RIGHT</button>
+		</div>
 	</script>
 
 
 	<!-- jQuery! -->
     <script src="libs/jquery-2.0.2.min.js"></script>
+
+    
     <!-- FastClick is used to eliminate the 300ms delay when clicking items on a mobile device
         https://github.com/ftlabs/fastclick -->
     <script src="libs/fastclick.js"></script>
