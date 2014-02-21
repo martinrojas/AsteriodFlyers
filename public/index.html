@@ -19,7 +19,6 @@
             </div>
 
             <div class="buttons">
-
                 <button id="btnCreateGame" class="btn left">CREATE</button>
                 <button id="btnJoinGame" class="btn right">JOIN</button>
                 <div style="clear:both"></div>
@@ -64,8 +63,8 @@
 	
 	<script id="participant-screen-template" type="text/template">
 		<div class="buttons">
-			<button class="btnClick btn" value="up">UP</button>
-			<button class="btnClick btn" value="down">DOWN</button>
+			<button class="btnClick btn" value="forward">FORWARD</button>
+			<button class="btnClick btn" value="back">BACK</button>
 			<button class="btnClick btn" value="left">LEFT</button>
 			<button class="btnClick btn" value="right">RIGHT</button>
 		</div>
@@ -82,12 +81,10 @@
 
     <!-- If Socket.IO is used with Express, then the /socket.io/ path will
         serve the proper Socket.IO javascript files used by the browser -->
-    <script src="/socket.io/socket.io.js"></script>
-	<script src="js/game.js"></script>
-
-	<!-- <script src="js/three.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>	
+	<script src="js/three.min.js"></script>
 	<script src="js/controls/FlyControls.js"></script>
-	<script src="js/lensflare.js"></script> -->
-	
+	<script src="js/lensflare.js"></script>
+	<script src="js/game.js"></script>
 </body>
 </html>

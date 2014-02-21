@@ -6,12 +6,12 @@ var clock = new THREE.Clock();
 
 var composer;
 
-init();
-animate();
+// lensInit();
+// lensAnimate();
 
-function init() {
+function lensInit() {
 
-	container = document.createElement( 'div' );
+	container = document.getElementById( 'gameArea' );
 	document.body.appendChild( container );
 
 	// camera
@@ -83,9 +83,9 @@ function init() {
 	addLight( 0.55, 0.9, 0.5, 5000, 0, -1000 );
 	addLight( 0.08, 0.8, 0.5,    0, 0, -1000 );
 	addLight( 0.995, 0.5, 0.9, 5000, 5000, -1000 );
-	addLight( 0.55, 0.9, 0.5, 6000, 1000, -2000 );
-	addLight( 0.08, 0.8, 0.5,  7000, 2000, -3000 );
-	addLight( 0.995, 0.5, 0.9, 9000, 5000, -5000 );
+	addLight( 0.55, 0.9, 0.5, 5500, 1000, -1000 );
+	addLight( 0.08, 0.8, 0.5,  6000, 2000, -1000 );
+	addLight( 0.995, 0.5, 0.9, 9000, 5000, -1000 );
 
 	function addLight( h, s, l, x, y, z ) {
 

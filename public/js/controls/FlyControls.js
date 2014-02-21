@@ -109,6 +109,7 @@ THREE.FlyControls = function ( object, domElement ) {
 
 	};
 
+	
 	this.mousedown = function( event ) {
 
 		if ( this.domElement !== document ) {
@@ -244,6 +245,40 @@ THREE.FlyControls = function ( object, domElement ) {
 
 	};
 
+	 this.onMessage =function (type) {
+		switch(type.detail["type"]){
+			case 'forward': 
+				this.moveState.forward = 1; 
+				window.setTimeout(resetMovement(this),10000);
+				break;
+			case 'back': 
+				this.moveState.back = 1; 
+				setTimeout(resetMovement(this),1000);
+				break;
+
+			case 'left': 
+				this.moveState.left = 1; 
+				setTimeout(resetMovement(this),1000);
+				break;
+			case 'right': 
+				this.moveState.right = 1; 
+				setTimeout(resetMovement(this),1000);
+				break;
+
+		}
+
+		this.updateMovementVector();
+	};
+
+	function resetMovement (object) {
+		object.moveState.forward = 0; 
+		object.moveState.back = 0; 
+		object.moveState.left = 0; 
+		object.moveState.right = 0; 
+
+		object.updateMovementVector();
+	}
+
 	function bind( scope, fn ) {
 
 		return function () {
@@ -256,12 +291,13 @@ THREE.FlyControls = function ( object, domElement ) {
 
 	this.domElement.addEventListener( 'contextmenu', function ( event ) { event.preventDefault(); }, false );
 
-	this.domElement.addEventListener( 'mousemove', bind( this, this.mousemove ), false );
+	//this.domElement.addEventListener( 'mousemove', bind( this, this.mousemove ), false );
 	this.domElement.addEventListener( 'mousedown', bind( this, this.mousedown ), false );
 	this.domElement.addEventListener( 'mouseup',   bind( this, this.mouseup ), false );
 
 	this.domElement.addEventListener( 'keydown', bind( this, this.keydown ), false );
 	this.domElement.addEventListener( 'keyup',   bind( this, this.keyup ), false );
+	this.domElement.addEventListener( 'message', bind(this, this.onMessage), false);
 
 	this.updateMovementVector();
 	this.updateRotationVector();
