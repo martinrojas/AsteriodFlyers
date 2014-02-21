@@ -247,37 +247,47 @@ THREE.FlyControls = function ( object, domElement ) {
 
 	 this.onMessage =function (type) {
 		switch(type.detail["type"]){
-			case 'forward': 
+			case 0: 
 				this.moveState.forward = 1; 
-				window.setTimeout(resetMovement(this),10000);
 				break;
-			case 'back': 
+			case 1: 
 				this.moveState.back = 1; 
-				setTimeout(resetMovement(this),1000);
 				break;
-
-			case 'left': 
+			case 2: 
 				this.moveState.left = 1; 
-				setTimeout(resetMovement(this),1000);
 				break;
-			case 'right': 
+			case 3: 
 				this.moveState.right = 1; 
-				setTimeout(resetMovement(this),1000);
+				break;
+			case 4: 
+				this.moveState.up = 1; 
+				break;
+			case 5: 
+				this.moveState.down = 1; 
+				break;
+			case 6: 
+				this.moveState.forward = 0; 
+				break;
+			case 7: 
+				this.moveState.back = 0; 
+				break;
+			case 8: 
+				this.moveState.left = 0; 
+				break;
+			case 9: 
+				this.moveState.right = 0; 
+				break;
+			case 10:
+				this.moveState.up = 0; 
+				break;
+			case 11:
+				this.moveState.down = 0; 
 				break;
 
 		}
 
 		this.updateMovementVector();
 	};
-
-	function resetMovement (object) {
-		object.moveState.forward = 0; 
-		object.moveState.back = 0; 
-		object.moveState.left = 0; 
-		object.moveState.right = 0; 
-
-		object.updateMovementVector();
-	}
 
 	function bind( scope, fn ) {
 
