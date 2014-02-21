@@ -25,7 +25,7 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
-var server = require('http').createServer(app).listen(8080);
+var server = require('http').createServer(app).listen(80);
 
 // Create a Socket.IO server and attach it to the http server
 var io = require('socket.io').listen(server);
