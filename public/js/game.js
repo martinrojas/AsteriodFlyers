@@ -351,6 +351,7 @@ jQuery(function ($) {
                 App.$gameArea.html(App.$playerGame);
                 if (window.DeviceOrientationEvent) {
                     // Listen for the event and handle DeviceOrientationEvent object
+                    console.log('added motion listener');
                     window.addEventListener('deviceorientation', App.Player.onDevOrientHandler, false);
                 }
             },
