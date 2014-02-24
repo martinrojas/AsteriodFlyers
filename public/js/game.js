@@ -166,10 +166,7 @@ jQuery(function ($) {
             App.$doc.on('mouseup', '.btnClick',App.Player.onPlayerControlUp);
             App.$doc.on('click', '#btnPlayerRestart', App.Player.onPlayerRestart);
 
-            if (window.DeviceOrientationEvent) {
-                // Listen for the event and handle DeviceOrientationEvent object
-                window.addEventListener('deviceorientation', App.Player.onDevOrientHandler, false);
-            }
+            
         },
 
         /* *************************************
@@ -352,6 +349,10 @@ jQuery(function ($) {
             onGameStart: function () {
                 if(App.myRole == 'Player')
                 App.$gameArea.html(App.$playerGame);
+                if (window.DeviceOrientationEvent) {
+                    // Listen for the event and handle DeviceOrientationEvent object
+                    window.addEventListener('deviceorientation', App.Player.onDevOrientHandler, false);
+                }
             },
 
             /**
