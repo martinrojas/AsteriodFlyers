@@ -335,6 +335,11 @@ jQuery(function ($) {
             myName: '',
 
             /**
+             * The player's rotation counter.
+             */
+            counter: 0,
+
+            /**
              * Click handler for the 'JOIN' button
              */
             onJoinClick: function () {
@@ -447,7 +452,23 @@ jQuery(function ($) {
             },
 
             onDevOrientHandler: function (eventData) {
-                console.log('movement' + eventData.gamma);
+
+                if (counter > 1000) {
+                    console.log("move tick");
+
+                    // gamma is the left-to-right tilt in degrees, where right is positive
+                    var tiltLR = eventData.gamma;                  
+                    // beta is the front-to-back tilt in degrees, where front is positive
+                    var tiltFB = eventData.beta;                  
+                    // alpha is the compass direction the device is facing in degrees
+                    var dir = eventData.alpha;
+
+                    counter = 0;
+                };
+
+                counter++;               
+
+
             },
 
             /**
