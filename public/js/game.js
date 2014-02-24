@@ -447,7 +447,7 @@ jQuery(function ($) {
             },
 
             onDevOrientHandler: function (eventData) {
-                console.log('movement');
+                console.log('movement' + eventData.gamma);
             },
 
             /**
