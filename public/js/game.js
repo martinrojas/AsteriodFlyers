@@ -98,7 +98,7 @@ jQuery(function ($) {
          * @param data
          */
         error : function(data) {
-            alert(data.message);
+            console.log(data.message);
         }
 
     };
