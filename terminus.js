@@ -2,7 +2,7 @@ var io;
 var gameSocket;
 
 /**
- * This function is called by index.js to initialize a new game instance.
+ * This function is called by app.js to initialize a new game instance.
  *
  * @param sio The Socket.IO library
  * @param socket The socket object for the connected client.
@@ -16,7 +16,6 @@ exports.initGame = function(sio, socket){
     gameSocket.on('hostCreateNewGame', hostCreateNewGame);
     gameSocket.on('hostRoomFull', hostPrepareGame);
     gameSocket.on('hostCountdownFinished', hostStartGame);
-    gameSocket.on('hostNextRound', hostNextRound);
 
     // Player Events
     gameSocket.on('playerJoinGame', playerJoinGame);
@@ -35,7 +34,7 @@ exports.initGame = function(sio, socket){
  */
 function hostCreateNewGame() {
     // Create a unique Socket.IO Room
-    var thisGameId = ( Math.random() * 100000 ) | 0;
+    var thisGameId = ( Math.random() * 1000 ) | 0;
 
     // Return the Room ID (gameId) and the socket ID (mySocketId) to the browser client
     this.emit('newGameCreated', {gameId: thisGameId, mySocketId: this.id});
@@ -45,7 +44,7 @@ function hostCreateNewGame() {
 };
 
 /*
- * Two players have joined. Alert the host!
+ * players have joined. Alert the host!
  * @param gameId The game ID / room ID
  */
 function hostPrepareGame(gameId) {
@@ -64,23 +63,13 @@ function hostPrepareGame(gameId) {
  */
 function hostStartGame(gameId) {
     console.log('Game Started.');
-    // sendWord(0,gameId);
     playerStart(gameId);
 };
 
-/**
- * A player answered correctly. Time for the next word.
- * @param data Sent from the client. Contains the current round and gameId (room)
- */
-function hostNextRound(data) {
-    if(data.round < wordPool.length ){
-        // Send a new set of words back to the host and players.
-        sendWord(data.round, data.gameId);
-    } else {
-        // If the current round exceeds the number of words, send the 'gameOver' event.
-        io.sockets.in(data.gameId).emit('gameOver',data);
-    }
-}
+// If the current round exceeds the number of words, send the 'gameOver' event.
+// io.sockets.in(data.gameId).emit('gameOver',data);
+    
+
 /* *****************************
    *                           *
    *     PLAYER FUNCTIONS      *
@@ -148,10 +137,3 @@ function playerRestart(data) {
     data.playerId = this.id;
     io.sockets.in(data.gameId).emit('playerJoinedRoom',data);
 }
-
-/* *************************
-   *                       *
-   *      GAME LOGIC       *
-   *                       *
-   ************************* */
-

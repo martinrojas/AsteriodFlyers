@@ -21,7 +21,6 @@ jQuery(function ($) {
             IO.socket.on('newGameCreated', IO.onNewGameCreated );
             IO.socket.on('playerJoinedRoom', IO.playerJoinedRoom );
             IO.socket.on('beginNewGame', IO.beginNewGame );
-            IO.socket.on('newWordData', IO.onNewWordData);
             IO.socket.on('hostControlTick', IO.hostControlTick);
             IO.socket.on('gameHasStarted', IO.gameHasStarted);
             IO.socket.on('gameOver', IO.gameOver);
@@ -65,18 +64,6 @@ jQuery(function ($) {
          */
         beginNewGame : function(data) {
             App[App.myRole].gameCountdown(data);
-        },
-
-        /**
-         * A new set of words for the round is returned from the server.
-         * @param data
-         */
-        onNewWordData : function(data) {
-            // Update the current round
-            App.currentRound = data.round;
-
-            // Change the word for the Host and Player
-            App[App.myRole].newWord(data);
         },
 
         /**
@@ -137,12 +124,6 @@ jQuery(function ($) {
          */
         mySocketId: '',
 
-        /**
-         * Identifies the current round. Starts at 0 because it corresponds
-         * to the array of word data stored on the server.
-         */
-        currentRound: 0,
-
         /* *************************************
          *                Setup                *
          * *********************************** */
@@ -154,9 +135,6 @@ jQuery(function ($) {
             App.cacheElements();
             App.showInitScreen();
             App.bindEvents();
-
-            // Initialize the fastclick library
-            FastClick.attach(document.body);
         },
 
         /**
@@ -199,7 +177,6 @@ jQuery(function ($) {
          */
         showInitScreen: function() {
             App.$gameArea.html(App.$templateIntroScreen);
-            // App.doTextFit('.title');
         },
 
 
@@ -226,15 +203,10 @@ jQuery(function ($) {
             numPlayersInRoom: 0,
 
             /**
-             * A reference to the correct answer for the current round.
-             */
-            currentCorrectAnswer: '',
-
-            /**
              * Handler for the "Start" button on the Title Screen.
              */
             onCreateClick: function () {
-                // console.log('Clicked "Create A Game"');
+                console.log('Clicked "Create A Game"');
                 IO.socket.emit('hostCreateNewGame');
             },
 
@@ -285,7 +257,7 @@ jQuery(function ($) {
 
                 // If two players have joined, start the game!
                 if (App.Host.numPlayersInRoom === 1) {
-                    // console.log('Room is full. Almost ready!');
+                    console.log('Room is full. Almost ready!');
 
                     // Let the server know that two players are present.
                     IO.socket.emit('hostRoomFull',App.gameId);
@@ -304,7 +276,6 @@ jQuery(function ($) {
 
                 IO.socket.emit('hostCountdownFinished', App.gameId);               
             },            
-
 
             checkControlTick : function (data) {
                 
@@ -564,27 +535,7 @@ jQuery(function ($) {
                 }
             }
 
-        },
-
-        /**
-         * Make the text inside the given element as big as possible
-         * See: https://github.com/STRML/textFit
-         *
-         * @param el The parent element of some text
-         */
-        doTextFit : function(el) {
-            // textFit(
-            //     $(el)[0],
-            //     {
-            //         alignHoriz:true,
-            //         alignVert:false,
-            //         widthOnly:true,
-            //         reProcess:true,
-            //         maxFontSize:300
-            //     }
-            // );
         }
-
     };
 
     IO.init();

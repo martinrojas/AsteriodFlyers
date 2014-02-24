@@ -10,8 +10,8 @@ var path = require('path');
 // var routes = require('./routes');
 // var user = require('./routes/user');
 
-// Import the Anagrammatix game file.
-var agx = require('./agxgame');
+// Import the Terminus logic.
+var terminus = require('./terminus');
 
 
 var app = express();
@@ -36,5 +36,5 @@ io.set('log level',1);
 // Listen for Socket.IO Connections. Once connected, start the game logic.
 io.sockets.on('connection', function (socket) {
     //console.log('client connected');
-    agx.initGame(io, socket);
+    terminus.initGame(io, socket);
 });
