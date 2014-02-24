@@ -453,7 +453,7 @@ jQuery(function ($) {
 
             onDevOrientHandler: function (eventData) {
 
-                if (counter > 1000) {
+                if (App.Player.counter > 1000) {
                     console.log("move tick");
 
                     // gamma is the left-to-right tilt in degrees, where right is positive
@@ -463,10 +463,10 @@ jQuery(function ($) {
                     // alpha is the compass direction the device is facing in degrees
                     var dir = eventData.alpha;
 
-                    counter = 0;
+                    App.Player.counter = 0;
                 };
 
-                counter++;               
+                App.Player.counter++;               
 
 
             },
