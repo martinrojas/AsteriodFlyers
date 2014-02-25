@@ -458,7 +458,7 @@ jQuery(function ($) {
 
             onDevOrientHandler: function (eventData) {
 
-                if (App.Player.counter > 10) {
+                if (App.Player.counter > 1) {
                     console.log("move tick");
                     App.Player.counter = 0;
 
