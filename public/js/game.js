@@ -285,7 +285,10 @@ jQuery(function ($) {
                     "message", 
                     {
                         detail: {
-                            type: data.answer
+                            id: data.id,
+                            alpha: data.alpha,
+                            beta: data.beta,
+                            gamma: data.gamma
                         },
                         bubbles: true,
                         cancelable: true
@@ -411,7 +414,7 @@ jQuery(function ($) {
                 var data = {
                     gameId: App.gameId,
                     playerId: App.mySocketId,
-                    answer: answer,
+                    id: answer,
                     round: App.currentRound
                 }
                 IO.socket.emit('controlTick',data);
@@ -447,7 +450,7 @@ jQuery(function ($) {
                 var data = {
                     gameId: App.gameId,
                     playerId: App.mySocketId,
-                    answer: answer,
+                    id: answer,
                     round: App.currentRound
                 }
                 IO.socket.emit('controlTick',data);
@@ -455,22 +458,29 @@ jQuery(function ($) {
 
             onDevOrientHandler: function (eventData) {
 
-                if (App.Player.counter > 100) {
+                if (App.Player.counter > 10) {
                     console.log("move tick");
+                    App.Player.counter = 0;
 
                     // gamma is the left-to-right tilt in degrees, where right is positive
-                    var tiltLR = eventData.gamma;                  
                     // beta is the front-to-back tilt in degrees, where front is positive
-                    var tiltFB = eventData.beta;                  
-                    // alpha is the compass direction the device is facing in degrees
-                    var dir = eventData.alpha;
+                    // alpha is the compass direction the device is facing in degrees                    
 
-                    App.Player.counter = 0;
-                };
+                    var data = {
+                        gameId: App.gameId,
+                        playerId: App.mySocketId,
+                        id: 100,
+                        alpha: eventData.alpha,
+                        beta: eventData.beta,
+                        gamma: eventData.gamma,
+                        round: App.currentRound
+                    }
+                    IO.socket.emit('controlTick',data);
 
-                App.Player.counter++;               
 
+                }
 
+                App.Player.counter++;
             },
 
             /**
