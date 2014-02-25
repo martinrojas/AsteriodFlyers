@@ -290,6 +290,7 @@ THREE.FlyControls = function ( object, domElement ) {
 		}
 
 		this.updateMovementVector();
+		this.updateRotationVector();
 	};
 
 	function bind( scope, fn ) {
