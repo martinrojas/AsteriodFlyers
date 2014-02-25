@@ -4,26 +4,28 @@
 	<meta charset="utf-8"/>
     <!-- Ensure that everything scales appropriately on a mobile device -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-	<link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/uikit.css" />
+	<!-- <link rel="stylesheet" href="css/style.css"> -->
 </head>
 <body>
-	<div id="gameArea">
+	<div id="gameArea" class="uk-container uk-container-center">
 		
 	</div>
 	<!-- Main Title Screen that appears when the page loads for the first time -->
 	<script id="intro-screen-template" type="text/template">
-		<div class="titleWrapper">
+		<div class="uk-grid">
+            <div class="uk-width-1-1 uk-container-center">
+                <h1>
+                    Terminus Framework
+                </h1>
 
-            <div class="title">
-                Terminus Framework
+                <div class="buttons">
+                    <button id="btnCreateGame" class="uk-button uk-button-large uk-button-primary .uk-width-1-1">CREATE</button>
+                    <hr>
+                    <button id="btnJoinGame" class="uk-button uk-button-large uk-button-primary .uk-width-1-1">JOIN</button>
+                    <div style="clear:both"></div>
+                </div>
             </div>
-
-            <div class="buttons">
-                <button id="btnCreateGame" class="btn left">CREATE</button>
-                <button id="btnJoinGame" class="btn right">JOIN</button>
-                <div style="clear:both"></div>
-            </div>
-
         </div>
 	</script>
 
@@ -75,12 +77,6 @@
 
 	<!-- jQuery! -->
     <script src="libs/jquery-2.0.2.min.js"></script>
-
-    
-    <!-- FastClick is used to eliminate the 300ms delay when clicking items on a mobile device
-        https://github.com/ftlabs/fastclick -->
-    <script src="libs/fastclick.js"></script>
-
     <!-- If Socket.IO is used with Express, then the /socket.io/ path will
         serve the proper Socket.IO javascript files used by the browser -->
     <script src="/socket.io/socket.io.js"></script>	
