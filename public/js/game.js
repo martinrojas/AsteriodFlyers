@@ -272,7 +272,7 @@ jQuery(function ($) {
 
                 // Prepare the game screen with new HTML
                 App.$gameArea.html(App.$hostGame); 
-                lensInit();
+                mineCraftInit();
                 animate();
 
                 IO.socket.emit('hostCountdownFinished', App.gameId);               
