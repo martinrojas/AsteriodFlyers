@@ -404,9 +404,9 @@ jQuery(function ($) {
                         answer = 0;
                         break;
                     case 'recalibrate':
-                        App.Player.alpha = eventData.alpha;
-                        App.Player.beta = eventData.beta;
-                        App.Player.gamma = eventData.gamma;
+                        App.Player.alpha = undefined;
+                        App.Player.beta = undefined;
+                        App.Player.gamma = undefined;
                         break;
 
                 }                
