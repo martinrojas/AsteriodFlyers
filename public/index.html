@@ -50,10 +50,17 @@
     <script id="join-game-template" type="text/template">
         <div class="cover">
             
-            <div class="info">
-                <label for="inputGameId">Game ID:</label>
-                <input id="inputGameId" type="number"/>
+            <div class="masthead">
+                <div class="inner">
+                    <h1>
+                        Join Game
+                    </h1>
+                </div>
             </div>
+            <div class="input-group">
+              <span class="input-group-addon">ID </span>
+              <input id="inputGameId" type="number" class="form-control" placeholder="XXX">
+            </div>         
 
             <div class="info buttons">
                 <a id="btnStart" class="btn btn-lg btn-default">Start</a>
@@ -72,7 +79,8 @@
 			<a class="btn btn-lg btn-default gameControl" data-type="forward"><span class="glyphicon glyphicon-chevron-up"></span></a>
 			<a class="btn btn-lg btn-default gameControl" data-type="stop"><span class="glyphicon glyphicon-remove-circle"></span></a>
 			<a class="btn btn-lg btn-default gameControl" data-type="back"><span class="glyphicon glyphicon-chevron-down"></span></a>
-			
+            <hr>
+            <a class="btn btn-lg btn-default gameControl" data-type="recalibrate">RECALIBRATE</span></a>
 		</div>
 	</script>
 

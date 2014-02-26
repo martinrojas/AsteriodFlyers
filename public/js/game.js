@@ -403,6 +403,12 @@ jQuery(function ($) {
                     case 'stop': 
                         answer = 0;
                         break;
+                    case 'recalibrate':
+                        App.Player.alpha = eventData.alpha;
+                        App.Player.beta = eventData.beta;
+                        App.Player.gamma = eventData.gamma;
+                        break;
+
                 }                
 
                 // Send the player info and tapped word to the server so
