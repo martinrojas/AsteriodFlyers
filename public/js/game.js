@@ -339,6 +339,13 @@ jQuery(function ($) {
             counter: 0,
 
             /**
+             * Initial values for the gyroscope.
+             */
+            alpha: undefined,
+            beta: undefined,
+            gamma: undefined,
+
+            /**
              * Click handler for the 'JOIN' button
              */
             onJoinClick: function () {
@@ -410,7 +417,10 @@ jQuery(function ($) {
             },
 
             onDevOrientHandler: function (eventData) {
-
+                if(App.Player.alpha == undefined) App.Player.alpha = eventData.alpha;
+                if(App.Player.beta == undefined) App.Player.beta = eventData.beta;
+                if(App.Player.gamma == undefined) App.Player.gamma = eventData.gamma;
+                
                 if (App.Player.counter > 1) {
                     console.log("move tick");
                     App.Player.counter = 0;
@@ -424,7 +434,7 @@ jQuery(function ($) {
                         playerId: App.mySocketId,
                         id: 100,
                         alpha: eventData.alpha,
-                        beta: eventData.beta,
+                        beta: eventData.beta - App.Player.beta,
                         gamma: eventData.gamma,
                         round: App.currentRound
                     }
