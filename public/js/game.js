@@ -428,7 +428,7 @@ jQuery(function ($) {
                 if(App.Player.gamma == undefined) App.Player.gamma = eventData.gamma;
                 
                 if (App.Player.counter > 10) {
-                    console.log("move tick");
+                    console.log('L/R = ' + eventData.gamma + ', U/D = ' + eventData.beta - App.Player.beta);
                     App.Player.counter = 0;
 
                     // gamma is the left-to-right tilt in degrees, where right is positive
