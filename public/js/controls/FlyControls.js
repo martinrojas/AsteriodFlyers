@@ -248,40 +248,14 @@ THREE.FlyControls = function ( object, domElement ) {
 	 this.onMessage =function (type) {
 		switch(type.detail.id){
 			case 0: 
-				this.moveState.forward = 1; 
+				this.moveState.forward = 0; 
+				this.moveState.back = 0;
 				break;
 			case 1: 
-				this.moveState.back = 1; 
+				this.moveState.forward = 1; 
 				break;
 			case 2: 
-				this.moveState.left = 1; 
-				break;
-			case 3: 
-				this.moveState.right = 1; 
-				break;
-			case 4: 
-				this.moveState.up = 1; 
-				break;
-			case 5: 
-				this.moveState.down = 1; 
-				break;
-			case 6: 
-				this.moveState.forward = 0; 
-				break;
-			case 7: 
-				this.moveState.back = 0; 
-				break;
-			case 8: 
-				this.moveState.left = 0; 
-				break;
-			case 9: 
-				this.moveState.right = 0; 
-				break;
-			case 10:
-				this.moveState.up = 0; 
-				break;
-			case 11:
-				this.moveState.down = 0; 
+				this.moveState.back = 1; 
 				break;
 			case 100:
 				this.moveState.rollRight = type.detail.gamma / 90;

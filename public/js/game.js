@@ -162,7 +162,7 @@ jQuery(function ($) {
             // Player
             App.$doc.on('click', '#btnJoinGame', App.Player.onJoinClick);
             App.$doc.on('click', '#btnStart',App.Player.onPlayerStartClick);
-            App.$doc.on('mousedown', '.gameControl',App.Player.onPlayerControlDown);
+            App.$doc.on('click', '.gameControl',App.Player.onPlayerControlDown);
             App.$doc.on('click', '#btnPlayerRestart', App.Player.onPlayerRestart);
 
             
@@ -384,15 +384,14 @@ jQuery(function ($) {
              */
             onPlayerControlDown: function() {
                 // console.log('Clicked Answer Button');
-                var $btn = $(this);      // the tapped button
                 var answer;
-                switch  ($btn.val())
+                switch  ($(this).data("type"))
                 {
                     case 'forward': 
-                        answer = 0;
+                        answer = 1;
                         break;
                     case 'back': 
-                        answer = 1;
+                        answer = 2;
                         break;
                     case 'stop': 
                         answer = 0;
