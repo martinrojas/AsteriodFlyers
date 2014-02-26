@@ -427,7 +427,7 @@ jQuery(function ($) {
                 if(App.Player.beta == undefined) App.Player.beta = eventData.beta;
                 if(App.Player.gamma == undefined) App.Player.gamma = eventData.gamma;
                 
-                if (App.Player.counter > 1) {
+                if (App.Player.counter > 10) {
                     console.log("move tick");
                     App.Player.counter = 0;
 
