@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 	<meta charset="utf-8"/>
     <!-- Ensure that everything scales appropriately on a mobile device -->
@@ -20,7 +20,7 @@
             <div class="masthead">
                 <div class="inner">
                     <h1>
-                        Terminus Framework
+                        Terminus Experience
                     </h1>
                 </div>
             </div>
@@ -60,12 +60,10 @@
             <div class="input-group">
               <span class="input-group-addon">ID </span>
               <input id="inputGameId" type="number" class="form-control" placeholder="XXX">
-            </div>         
-
-            <div class="info buttons">
-                <a id="btnStart" class="btn btn-lg btn-default">Start</a>
-                <div id="playerWaitingMessage"></div>
             </div>
+            <br />
+            <a id="btnStart" class="btn btn-lg btn-default">Start</a>
+            <div id="playerWaitingMessage"></div>
         </div>
     </script>
 
@@ -76,6 +74,13 @@
 	
 	<script id="participant-screen-template" type="text/template">
 		<div class="cover">
+            <div class="masthead">
+                <div class="inner">
+                    <h1>
+                        Controls
+                    </h1>
+                </div>
+            </div>
 			<a class="btn btn-lg btn-default gameControl" data-type="forward"><span class="glyphicon glyphicon-chevron-up"></span></a>
 			<a class="btn btn-lg btn-default gameControl" data-type="stop"><span class="glyphicon glyphicon-remove-circle"></span></a>
 			<a class="btn btn-lg btn-default gameControl" data-type="back"><span class="glyphicon glyphicon-chevron-down"></span></a>
