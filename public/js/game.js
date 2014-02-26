@@ -422,9 +422,9 @@ jQuery(function ($) {
             },
 
             onDevOrientHandler: function (eventData) {
-                if(App.Player.alpha == undefined) App.Player.alpha = eventData.alpha;
-                if(App.Player.beta == undefined) App.Player.beta = eventData.beta;
-                if(App.Player.gamma == undefined) App.Player.gamma = eventData.gamma;
+                if(App.Player.alpha == undefined) App.Player.alpha = Math.min(eventData.alpha);
+                if(App.Player.beta == undefined) App.Player.beta = Math.min(eventData.beta);
+                if(App.Player.gamma == undefined) App.Player.gamma = Math.min(eventData.gamma);
                 
                 if (App.Player.counter > 1) {
                     // console.log('L/R = ' + eventData.gamma + ', U/D = ' + eventData.beta - App.Player.beta);
@@ -438,9 +438,9 @@ jQuery(function ($) {
                         gameId: App.gameId,
                         playerId: App.mySocketId,
                         id: 100,
-                        alpha: eventData.alpha,
-                        beta: eventData.beta - App.Player.beta,
-                        gamma: eventData.gamma
+                        alpha: Math.min(eventData.alpha),
+                        beta: Math.min(eventData.beta) - App.Player.beta,
+                        gamma: Math.min(eventData.gamma)
                     }
 
                     IO.socket.emit('controlTick',data);
