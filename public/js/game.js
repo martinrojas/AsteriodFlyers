@@ -416,8 +416,7 @@ jQuery(function ($) {
                 var data = {
                     gameId: App.gameId,
                     playerId: App.mySocketId,
-                    id: answer,
-                    round: App.currentRound
+                    id: answer
                 }
                 IO.socket.emit('controlTick',data);
             },
@@ -427,8 +426,8 @@ jQuery(function ($) {
                 if(App.Player.beta == undefined) App.Player.beta = eventData.beta;
                 if(App.Player.gamma == undefined) App.Player.gamma = eventData.gamma;
                 
-                if (App.Player.counter > 10) {
-                    console.log('L/R = ' + eventData.gamma + ', U/D = ' + eventData.beta - App.Player.beta);
+                if (App.Player.counter > 1) {
+                    // console.log('L/R = ' + eventData.gamma + ', U/D = ' + eventData.beta - App.Player.beta);
                     App.Player.counter = 0;
 
                     // gamma is the left-to-right tilt in degrees, where right is positive
@@ -441,12 +440,10 @@ jQuery(function ($) {
                         id: 100,
                         alpha: eventData.alpha,
                         beta: eventData.beta - App.Player.beta,
-                        gamma: eventData.gamma,
-                        round: App.currentRound
+                        gamma: eventData.gamma
                     }
+
                     IO.socket.emit('controlTick',data);
-
-
                 }
 
                 App.Player.counter++;
