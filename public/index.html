@@ -4,28 +4,32 @@
 	<meta charset="utf-8"/>
     <!-- Ensure that everything scales appropriately on a mobile device -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-    <link rel="stylesheet" href="css/uikit.css" />
+    <link rel="stylesheet" href="css/bootstrap.css" />
+    <link rel="stylesheet" href="css/cover.css" />
 	<!-- <link rel="stylesheet" href="css/style.css"> -->
 </head>
 <body>
-	<div id="gameArea" class="uk-container uk-container-center">
-		
-	</div>
+    <div class="site-wrapper">
+    	<div id="gameArea" class="site-wrapper-inner">
+    		
+    	</div>
+    </div>
 	<!-- Main Title Screen that appears when the page loads for the first time -->
 	<script id="intro-screen-template" type="text/template">
-		<div class="uk-grid">
-            <div class="uk-width-1-1 uk-container-center">
-                <h1>
-                    Terminus Framework
-                </h1>
-
-                <div class="buttons">
-                    <button id="btnCreateGame" class="uk-button uk-button-large uk-button-primary .uk-width-1-1">CREATE</button>
-                    <hr>
-                    <button id="btnJoinGame" class="uk-button uk-button-large uk-button-primary .uk-width-1-1">JOIN</button>
-                    <div style="clear:both"></div>
+		<div class="cover">
+            <div class="masthead">
+                <div class="inner">
+                    <h1>
+                        Terminus Framework
+                    </h1>
                 </div>
             </div>
+
+            <div class="buttons">
+                <a id="btnCreateGame" class="btn btn-lg btn-default">CREATE</a>
+                <a id="btnJoinGame" class="btn btn-lg btn-default">JOIN</a>
+            </div>
+            
         </div>
 	</script>
 
@@ -48,11 +52,11 @@
             
             <div class="info">
                 <label for="inputGameId">Game ID:</label>
-                <input id="inputGameId" type="text"/>
+                <input id="inputGameId" type="number"/>
             </div>
 
             <div class="info buttons">
-                <button id="btnStart" class="btn">Start</button>
+                <a id="btnStart" class="btn btn-lg btn-default">Start</a>
                 <div id="playerWaitingMessage"></div>
             </div>
         </div>
@@ -65,12 +69,10 @@
 	
 	<script id="participant-screen-template" type="text/template">
 		<div class="buttons">
-			<button class="btnClick btn" value="forward">FORWARD</button>
-			<button class="btnClick btn" value="back">BACK</button>
-			<button class="btnClick btn" value="left">LEFT</button>
-			<button class="btnClick btn" value="right">RIGHT</button>
-			<button class="btnClick btn" value="up">UP</button>
-			<button class="btnClick btn" value="down">DOWN</button>
+			<a class="btn btn-lg btn-default gameControl" value="forward"><span class="glyphicon glyphicon-chevron-up"></span></a>
+			<a class="btn btn-lg btn-default gameControl" value="stop"><span class="glyphicon glyphicon-remove-circle"></span></a>
+			<a class="btn btn-lg btn-default gameControl" value="back"><span class="glyphicon glyphicon-chevron-down"></span></a>
+			
 		</div>
 	</script>
 

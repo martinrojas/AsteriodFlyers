@@ -162,8 +162,7 @@ jQuery(function ($) {
             // Player
             App.$doc.on('click', '#btnJoinGame', App.Player.onJoinClick);
             App.$doc.on('click', '#btnStart',App.Player.onPlayerStartClick);
-            App.$doc.on('mousedown', '.btnClick',App.Player.onPlayerControlDown);
-            App.$doc.on('mouseup', '.btnClick',App.Player.onPlayerControlUp);
+            App.$doc.on('mousedown', '.gameControl',App.Player.onPlayerControlDown);
             App.$doc.on('click', '#btnPlayerRestart', App.Player.onPlayerRestart);
 
             
@@ -395,56 +394,11 @@ jQuery(function ($) {
                     case 'back': 
                         answer = 1;
                         break;
-                    case 'left': 
-                        answer = 2;
-                        break;
-                    case 'right': 
-                        answer = 3;
-                        break;
-                    case 'up': 
-                        answer = 4;
-                        break;
-                    case 'down': 
-                        answer = 5;
+                    case 'stop': 
+                        answer = 0;
                         break;
                 }                
 
-                // Send the player info and tapped word to the server so
-                // the host can check the answer.
-                var data = {
-                    gameId: App.gameId,
-                    playerId: App.mySocketId,
-                    id: answer,
-                    round: App.currentRound
-                }
-                IO.socket.emit('controlTick',data);
-            },
-
-            onPlayerControlUp: function() {
-                // console.log('Clicked Answer Button');
-                var $btn = $(this);      // the tapped button
-                var answer;
-                switch  ($btn.val())
-                {
-                    case 'forward': 
-                        answer = 6;
-                        break;
-                    case 'back': 
-                        answer = 7;
-                        break;
-                    case 'left': 
-                        answer = 8;
-                        break;
-                    case 'right': 
-                        answer = 9;
-                        break;
-                    case 'up': 
-                        answer = 10;
-                        break;
-                    case 'down': 
-                        answer = 11;
-                        break;
-                }  
                 // Send the player info and tapped word to the server so
                 // the host can check the answer.
                 var data = {
