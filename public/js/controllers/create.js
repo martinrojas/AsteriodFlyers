@@ -1,0 +1,3 @@
+function CreateCtrl ($scope) {
+	// body...
+}

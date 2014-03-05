@@ -3,7 +3,7 @@
 /* Controllers */
 
 angular.module('terminus.controllers', []).
-  controller('AppCtrl', function ($scope, $http) {
+  controller('AppCtrl', function ($scope) {
     
 
   }).
