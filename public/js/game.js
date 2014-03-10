@@ -25,6 +25,9 @@ jQuery(function ($) {
             IO.socket.on('gameHasStarted', IO.gameHasStarted);
             IO.socket.on('gameOver', IO.gameOver);
             IO.socket.on('error', IO.error );
+
+            //second screen
+            IO.socket.on('onScreenJoinedRoom', IO.onScreenJoinedRoom);
         },
 
         /**
@@ -33,72 +36,77 @@ jQuery(function ($) {
         onConnected : function() {
             // Cache a copy of the client's socket.IO session ID on the App
             App.mySocketId = IO.socket.socket.sessionid;
-            // console.log(data.message);
+            // console.log(ioData.message);
         },
 
         /**
          * A new game has been created and a random game ID has been generated.
-         * @param data {{ gameId: int, mySocketId: * }}
+         * @param ioData {{ gameId: int, mySocketId: * }}
          */
-        onNewGameCreated : function(data) {
-            App.Host.gameInit(data);
+        onNewGameCreated : function(ioData) {
+            App.Host.gameInit(ioData);
         },
 
         /**
          * A player has successfully joined the game.
-         * @param data {{playerName: string, gameId: int, mySocketId: int}}
+         * @param ioData {{playerName: string, gameId: int, mySocketId: int}}
          */
-        playerJoinedRoom : function(data) {
+        playerJoinedRoom : function(ioData) {
             // When a player joins a room, do the updateWaitingScreen funciton.
             // There are two versions of this function: one for the 'host' and
             // another for the 'player'.
             //
             // So on the 'host' browser window, the App.Host.updateWiatingScreen function is called.
             // And on the player's browser, App.Player.updateWaitingScreen is called.
-            App[App.myRole].updateWaitingScreen(data);
+            App[App.myRole].updateWaitingScreen(ioData);
         },
 
         /**
          * Both players have joined the game.
-         * @param data
+         * @param ioData
          */
-        beginNewGame : function(data) {
-            App[App.myRole].gameCountdown(data);
+        beginNewGame : function(ioData) {
+            App[App.myRole].gameCountdown(ioData);
         },
 
         /**
          * A player answered. If this is the host, check the answer.
-         * @param data
+         * @param ioData
          */
-        hostControlTick : function(data) {
+        hostControlTick : function(ioData) {
             if(App.myRole === 'Host') {
-                App.Host.checkControlTick(data);
+                App.Host.checkControlTick(ioData);
             }
         },
 
         /**
          * A player answered. If this is the host, check the answer.
-         * @param data
+         * @param ioData
          */
-        gameHasStarted : function(data) {
+        gameHasStarted : function(ioData) {
             App.Player.onGameStart();
         },
 
 
         /**
          * Let everyone know the game has ended.
-         * @param data
+         * @param ioData
          */
-        gameOver : function(data) {
-            App[App.myRole].endGame(data);
+        gameOver : function(ioData) {
+            App[App.myRole].endGame(ioData);
         },
 
         /**
          * An error has occurred.
-         * @param data
+         * @param ioData
          */
-        error : function(data) {
-            console.log(data.message);
+        error : function(ioData) {
+            console.log(ioData.message);
+        },
+
+        onScreenJoinedRoom : function (ioData) {
+            data = ioData.worldData;
+            App.Screen.onScreenStarted(Math.PI);
         }
 
     };
@@ -158,10 +166,12 @@ jQuery(function ($) {
         bindEvents: function () {
             // Host
             App.$doc.on('click', '#btnCreateGame', App.Host.onCreateClick);
+            // Screen
+            App.$doc.on('click', '#btnScreenStart',App.Screen.onScreenStartClick);
 
             // Player
             App.$doc.on('click', '#btnJoinGame', App.Player.onJoinClick);
-            App.$doc.on('click', '#btnStart',App.Player.onPlayerStartClick);
+            App.$doc.on('click', '#btnMobileStart',App.Player.onPlayerStartClick);
             App.$doc.on('click', '.gameControl',App.Player.onPlayerControlDown);
             App.$doc.on('click', '#btnPlayerRestart', App.Player.onPlayerRestart);
 
@@ -272,10 +282,13 @@ jQuery(function ($) {
 
                 // Prepare the game screen with new HTML
                 App.$gameArea.html(App.$hostGame); 
-                mineCraftInit();
+
+                generateHeight( worldWidth, worldDepth );
+                mineCraftInit(0);
                 animate();
 
                 IO.socket.emit('hostCountdownFinished', App.gameId);               
+                IO.socket.emit('hostWorldData', data);
             },            
 
             checkControlTick : function (data) {
@@ -316,6 +329,51 @@ jQuery(function ($) {
             }
         },
 
+        /* *****************************
+           *    SECOND SCREEN CODE     *
+           ***************************** */
+
+        Screen : {
+
+            /**
+             * A reference to the socket ID of the Host
+             */
+            hostSocketId: '',
+
+            /**
+             * The player's name entered on the 'Join' screen.
+             */
+            screenName: '',
+
+            /**
+             * The second screen entered their gameId 
+             */
+            onScreenStartClick: function() {
+                
+                // collect data to send to the server
+                var data = {
+                    gameId : +($('#inputGameId').val()),
+                    playerName : 'anon'
+                };
+
+                // Send the gameId and playerName to the server
+                IO.socket.emit('screenJoinGame', data);
+
+                // Set the appropriate properties for the current player.
+                App.myRole = 'Screen';
+                App.Screen.screenName = data.playerName;
+            }, 
+
+            onScreenStarted : function (rotation) {
+                App.$gameArea.html(App.$hostGame); 
+                mineCraftInit(rotation);
+                animate();
+            }
+
+
+
+
+        },
 
         /* *****************************
            *        PLAYER CODE        *

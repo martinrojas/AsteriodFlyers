@@ -1,5 +1,6 @@
 var io;
 var gameSocket;
+var worldData;
 
 /**
  * This function is called by app.js to initialize a new game instance.
@@ -16,12 +17,17 @@ exports.initGame = function(sio, socket){
     gameSocket.on('hostCreateNewGame', hostCreateNewGame);
     gameSocket.on('hostRoomFull', hostPrepareGame);
     gameSocket.on('hostCountdownFinished', hostStartGame);
+    gameSocket.on('hostWorldData', hostWorldData);
+    
+    // Second Screen Functions
+    gameSocket.on('screenJoinGame', screenJoinGame);
 
     // Player Events
     gameSocket.on('playerJoinGame', playerJoinGame);
     gameSocket.on('controlTick', controlTick);
     gameSocket.on('playerRestart', playerRestart);
 }
+
 
 /* *******************************
    *                             *
@@ -69,6 +75,46 @@ function hostStartGame(gameId) {
 // If the current round exceeds the number of words, send the 'gameOver' event.
 // io.sockets.in(data.gameId).emit('gameOver',data);
     
+/*
+ * Store the world data
+ */
+ function hostWorldData (data) {
+     worldData = data;
+ }
+
+
+/* *****************************
+   *                           *
+   *     SCREEN FUNCTIONS      *
+   *                           *
+   ***************************** */
+
+function screenJoinGame (data) {
+    // A reference to the player's Socket.IO socket object
+    var sock = this;
+
+    // Look up the room ID in the Socket.IO manager object.
+    var room = gameSocket.manager.rooms["/" + data.gameId];
+
+    // If the room exists...
+    if( room != undefined ){
+        // attach the socket id to the data object.
+        data.mySocketId = sock.id;
+        data.worldData = worldData;
+
+        // Join the room
+        sock.join(data.gameId);
+
+        console.log('second screen game: ' + data.gameId );
+
+        // Emit an event notifying the clients that the player has joined the room.
+        io.sockets.in(data.gameId).emit('onScreenJoinedRoom', data);
+
+    } else {
+        // Otherwise, send an error message back to the player.
+        this.emit('error',{message: "This room does not exist."} );
+    }
+}
 
 /* *****************************
    *                           *

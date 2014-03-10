@@ -4,23 +4,26 @@ var container, stats;
 
 var camera, controls, scene, renderer;
 
-var mesh, mat;
+var mesh, mat, data = [];
 
 var worldWidth = 200, worldDepth = 200,
-worldHalfWidth = worldWidth / 2, worldHalfDepth = worldDepth / 2,
-data = generateHeight( worldWidth, worldDepth );
+worldHalfWidth = worldWidth / 2, worldHalfDepth = worldDepth / 2;
+// data = generateHeight( worldWidth, worldDepth );
 
 var clock = new THREE.Clock();
 
 // init();
 // animate();
 
-function mineCraftInit() {
+function mineCraftInit(rotation) {
 
 	container = document.getElementById( 'gameArea' );
 
+
+
 	camera = new THREE.PerspectiveCamera( 50, window.innerWidth / window.innerHeight, 1, 20000 );
 	camera.position.y = getY( worldHalfWidth, worldHalfDepth ) * 100 + 100;
+	camera.rotation.y = rotation;
 
 	// controls = new THREE.FirstPersonControls( camera );
 	controls = new THREE.FlyControls( camera );
@@ -273,7 +276,7 @@ function loadTexture( path, callback ) {
 
 function generateHeight( width, height ) {
 
-	var data = [], perlin = new ImprovedNoise(),
+	var perlin = new ImprovedNoise(),
 	size = width * height, quality = 2, z = Math.random() * 100;
 
 	for ( var j = 0; j < 4; j ++ ) {
@@ -291,7 +294,7 @@ function generateHeight( width, height ) {
 
 	}
 
-	return data;
+	// return data;
 
 }
 
