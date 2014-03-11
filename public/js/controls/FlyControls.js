@@ -277,7 +277,7 @@ THREE.FlyControls = function ( object, domElement ) {
 				this.moveState.pitchUp = type.detail.beta ;
 				break;
 			case 102:
-				this.moveState.pitchUp = type.detail.gamma ;
+				this.moveState.yawRight = type.detail.gamma ;
 				this.moveState.rollLeft = type.detail.beta ;				
 				break;
 
