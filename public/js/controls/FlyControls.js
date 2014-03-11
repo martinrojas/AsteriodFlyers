@@ -250,6 +250,8 @@ THREE.FlyControls = function ( object, domElement ) {
 			case 0: 
 				this.moveState.forward = 0; 
 				this.moveState.back = 0;
+				this.moveState.left = 0; 
+				this.moveState.right = 0;
 				this.moveState.yawRight = 0;
 				this.moveState.pitchUp = 0;
 				break;
@@ -258,6 +260,12 @@ THREE.FlyControls = function ( object, domElement ) {
 				break;
 			case 2: 
 				this.moveState.back = 1; 
+				break;
+			case 3: 
+				this.moveState.right = 1; 
+				break;
+			case 4: 
+				this.moveState.left = 1; 
 				break;
 			case 100:
 				this.moveState.yawRight = type.detail.gamma ;

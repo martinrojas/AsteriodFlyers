@@ -76,7 +76,10 @@ jQuery(function ($) {
         hostControlTick : function(ioData) {
             if(App.myRole === 'Host') {
                 App.Host.checkControlTick(ioData);
-            }
+            }else if (App.myRole === 'Screen') {
+                App.Screen.checkControlTick(ioData);
+            } 
+
         },
 
         /**
@@ -123,7 +126,7 @@ jQuery(function ($) {
         /**
          * This is used to differentiate between 'Host' and 'Player' browsers.
          */
-        myRole: '',   // 'Player' or 'Host'
+        myRole: '',   // 'Player', 'Host' or 'Screen'
 
         /**
          * The Socket.IO socket object identifier. This is unique for
@@ -167,6 +170,7 @@ jQuery(function ($) {
             // Host
             App.$doc.on('click', '#btnCreateGame', App.Host.onCreateClick);
             // Screen
+
             App.$doc.on('click', '#btnScreenStart',App.Screen.onScreenStartClick);
 
             // Player
@@ -341,15 +345,16 @@ jQuery(function ($) {
             hostSocketId: '',
 
             /**
-             * The player's name entered on the 'Join' screen.
+             * The direction L/R/F/B.
              */
-            screenName: '',
+            direction: '',
 
             /**
              * The second screen entered their gameId 
              */
             onScreenStartClick: function() {
                 
+                direction = $(" #screenOrientation option:selected").val();
                 // collect data to send to the server
                 var data = {
                     gameId : +($('#inputGameId').val()),
@@ -365,13 +370,59 @@ jQuery(function ($) {
             }, 
 
             onScreenStarted : function (rotation) {
-                App.$gameArea.html(App.$hostGame); 
-                mineCraftInit(rotation);
-                animate();
+                if (App.myRole == 'Screen') {
+                    App.$gameArea.html(App.$hostGame); 
+                    mineCraftInit(rotation);
+                    animate();
+                };
+                
+            },
+
+            checkControlTick : function (data) {
+                var LR, UD, move = data.id;
+                switch(direction){
+                    case 'F':
+                        if (data.id == 1) { move = 1};
+                        if (data.id == 2) { move = 2};
+                        if (data.id == 100) { 
+                            LR = data.gamma;
+                            UD = data.beta;
+                        };
+                        break;
+                    case 'B':
+                        if (data.id == 1) { move = 2};
+                        if (data.id == 2) { move = 1};
+                        if (data.id == 100) { 
+                            LR = data.gamma * -1;
+                            UD = data.beta * -1;
+                        };
+                        break;
+                    case 'L':
+                        if (data.id == 1) { move = 4};
+                        if (data.id == 2) { move = 3};
+                        break;
+                    case 'R':
+                        if (data.id == 1) { move = 3};
+                        if (data.id == 2) { move = 4};
+                        break;
+                }
+
+
+                var event = new CustomEvent(
+                    "message", 
+                    {
+                        detail: {
+                            id: move,
+                            alpha: data.alpha,
+                            beta: UD,
+                            gamma: LR
+                        },
+                        bubbles: true,
+                        cancelable: true
+                    }
+                );
+                document.getElementById("gameArea").dispatchEvent(event);
             }
-
-
-
 
         },
 
