@@ -109,7 +109,7 @@ jQuery(function ($) {
 
         onScreenJoinedRoom : function (ioData) {
             data = ioData.worldData;
-            App.Screen.onScreenStarted(Math.PI);
+            App.Screen.onScreenStarted();
         }
 
     };
@@ -369,10 +369,25 @@ jQuery(function ($) {
                 App.Screen.screenName = data.playerName;
             }, 
 
-            onScreenStarted : function (rotation) {
+            onScreenStarted : function () {
                 if (App.myRole == 'Screen') {
                     App.$gameArea.html(App.$hostGame); 
-                    mineCraftInit(rotation);
+
+                    switch(direction){
+                        case 'F':
+                            mineCraftInit(0);
+                            break;
+                        case 'B':
+                            mineCraftInit(Math.PI);                            
+                            break;
+                        case 'L':
+                            mineCraftInit(Math.PI / 2);
+                            break;
+                        case 'R':
+                            mineCraftInit((3 * Math.PI) / 2);
+                            break;
+                    }
+                    
                     animate();
                 };
                 
