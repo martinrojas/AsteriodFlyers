@@ -424,8 +424,13 @@ jQuery(function ($) {
                         };
                         break;
                     case 'R':
-                        if (data.id == 1) { move = 3};
-                        if (data.id == 2) { move = 4};
+                        if (data.id == 1) { move = 4};
+                        if (data.id == 2) { move = 3};
+                        if (data.id == 100) { 
+                            move = 103;
+                            LR = data.gamma ;
+                            UD = data.beta ;
+                        };
                         break;
                 }
 
