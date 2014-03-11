@@ -272,6 +272,11 @@ THREE.FlyControls = function ( object, domElement ) {
 				this.moveState.pitchUp = type.detail.beta ;
 				console.log('L/R = ' + type.detail.gamma + ', U/D = ' + type.detail.beta);
 				break;
+			case 101:
+				this.moveState.yawLeft = type.detail.gamma ;
+				this.moveState.pitchUp = type.detail.beta ;
+				console.log('L/R = ' + type.detail.gamma + ', U/D = ' + type.detail.beta);
+				break;
 
 		}
 

@@ -390,9 +390,11 @@ jQuery(function ($) {
                         };
                         break;
                     case 'B':
+
                         if (data.id == 1) { move = 2};
                         if (data.id == 2) { move = 1};
                         if (data.id == 100) { 
+                            move = 101;
                             LR = data.gamma * -1;
                             UD = data.beta * -1;
                         };
