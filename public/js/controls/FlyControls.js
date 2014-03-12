@@ -253,7 +253,10 @@ THREE.FlyControls = function ( object, domElement ) {
 				this.moveState.left = 0; 
 				this.moveState.right = 0;
 				this.moveState.yawRight = 0;
+				this.moveState.yawLeft = 0;
 				this.moveState.pitchUp = 0;
+				this.moveState.rollLeft = 0;
+				this.moveState.rollRight = 0;
 				break;
 			case 1: 
 				this.moveState.forward = 1; 
