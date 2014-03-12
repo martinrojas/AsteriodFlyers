@@ -494,11 +494,11 @@ jQuery(function ($) {
             onGameStart: function () {
                 if(App.myRole == 'Player')
                 App.$gameArea.html(App.$playerGame);
-                if (window.DeviceOrientationEvent) {
-                    // Listen for the event and handle DeviceOrientationEvent object
-                    console.log('added motion listener');
-                    window.addEventListener('deviceorientation', App.Player.onDevOrientHandler, false);
-                }
+                // if (window.DeviceOrientationEvent) {
+                //     // Listen for the event and handle DeviceOrientationEvent object
+                    // console.log('added motion listener');
+                    // window.addEventListener('deviceorientation', App.Player.onDevOrientHandler, false);
+                // }
             },
 
             /**
@@ -543,6 +543,10 @@ jQuery(function ($) {
                         App.Player.alpha = undefined;
                         App.Player.beta = undefined;
                         App.Player.gamma = undefined;
+                        break;
+                    case 'motion':
+                        console.log('added motion listener');
+                        window.addEventListener('deviceorientation', App.Player.onDevOrientHandler, false);
                         break;
 
                 }                
