@@ -20,7 +20,7 @@ function mineCraftInit(rotation) {
 	container = document.getElementById( 'gameArea' );
 
 	//Perspective camera set up
-	camera = new THREE.PerspectiveCamera( 130, window.innerWidth / window.innerHeight, 1, 50000 );
+	camera = new THREE.PerspectiveCamera( 90, window.innerWidth / window.innerHeight, 1, 50000 );
 	camera.position.y = getY( worldHalfWidth, worldHalfDepth ) * 100 + 100;
 	camera.rotation.y = rotation;
 
