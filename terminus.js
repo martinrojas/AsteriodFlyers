@@ -14,7 +14,7 @@ exports.initGame = function(sio, socket){
     gameSocket.emit('connected', { message: "You are connected!" });
 
     // Host Events
-    gameSocket.on('hostCreateNewGame', hostCreateNewGame);
+    gameSocket.on('hostCreateNewExperience', hostCreateNewExperience);
     gameSocket.on('hostRoomFull', hostPrepareGame);
     gameSocket.on('hostCountdownFinished', hostStartGame);
     gameSocket.on('hostWorldData', hostWorldData);
@@ -36,17 +36,17 @@ exports.initGame = function(sio, socket){
    ******************************* */
 
 /**
- * The 'START' button was clicked and 'hostCreateNewGame' event occurred.
+ * The 'START' button was clicked and 'hostCreateNewExperience' event occurred.
  */
-function hostCreateNewGame() {
+function hostCreateNewExperience() {
     // Create a unique Socket.IO Room
-    var thisGameId = ( Math.random() * 1000 ) | 0;
+    var thisExperienceId = ( Math.random() * 1000 ) | 0;
 
     // Return the Room ID (gameId) and the socket ID (mySocketId) to the browser client
-    this.emit('newGameCreated', {gameId: thisGameId, mySocketId: this.id});
+    this.emit('beginNewExperience', {gameId: thisExperienceId, mySocketId: this.id});
 
     // Join the Room and wait for the players
-    this.join(thisGameId.toString());
+    this.join(thisExperienceId.toString());
 };
 
 /*

@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Mobile | Terminus</title>
+	<!-- Ensure that everything scales appropriately on a mobile device -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="css/bootstrap.css" />
+    <link rel="stylesheet" href="css/cover.css" />
+	<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+	<div class="site-wrapper">
+    	<div id="gameArea" class="site-wrapper-inner">
+    		<div class="cover">	            
+	            <div class="masthead">
+	                <div class="inner">
+	                    <h1>
+	                        Join Game
+	                    </h1>
+	                </div>
+	            </div>
+	            <div class="input-group">
+	              <span class="input-group-addon">Game ID </span>
+	              <input id="inputGameId" type="number" class="form-control" placeholder="XXX">
+	            </div>
+	            <br />
+	            <a id="btnMobileStart" class="btn btn-lg btn-default">Mobile</a>
+	            <div id="playerWaitingMessage"></div>
+	        </div>
+    	</div>
+    </div>
+	
+	<script id="participant-screen-template" type="text/template">
+		<div class="cover">
+            <div class="masthead">
+                <div class="inner">
+                    <h1>
+                        Controls
+                    </h1>
+                </div>
+            </div>
+			<a class="btn btn-lg btn-default gameControl" data-type="forward"><span class="glyphicon glyphicon-chevron-up"></span></a>
+			<a class="btn btn-lg btn-default gameControl" data-type="stop"><span class="glyphicon glyphicon-remove-circle"></span></a>
+			<a class="btn btn-lg btn-default gameControl" data-type="back"><span class="glyphicon glyphicon-chevron-down"></span></a>
+            <hr>
+            <a class="btn btn-lg btn-default gameControl" data-type="recalibrate">RECALIBRATE</span></a>
+            <a class="btn btn-lg btn-default gameControl" data-type="motion">MOTION</span></a>
+		</div>
+	</script>
+
+	<!-- jQuery! -->
+    <script src="libs/jquery-2.0.2.min.js"></script>
+    <!-- If Socket.IO is used with Express, then the /socket.io/ path will
+        serve the proper Socket.IO javascript files used by the browser -->
+    <script src="/socket.io/socket.io.js"></script>	
+	<script src="js/three.min.js"></script>
+	<script src="js/controls/FlyControls.js"></script>
+
+    <script src="js/ImprovedNoise.js"></script>
+	<script src="js/minecraft.js"></script>
+
+</body>
+</html>
