@@ -20,7 +20,7 @@ function mineCraftInit(rotation) {
 	container = document.getElementById( 'gameArea' );
 
 	//Perspective camera set up
-	camera = new THREE.PerspectiveCamera( 55, window.innerWidth / window.innerHeight, 1, 50000 );
+	camera = new THREE.PerspectiveCamera( 55, window.innerWidth / window.innerHeight, 1, 51000 );
 	camera.position.y = getY( worldHalfWidth, worldHalfDepth ) * 100 + 100;
 	camera.rotation.y = rotation;
 
@@ -142,7 +142,8 @@ function mineCraftInit(rotation) {
 	// SKYBOX //
 	////////////
 
-	var imagePrefix = "textures/skybox/skybox-";
+	// var imagePrefix = "textures/skybox/skybox-";
+	var imagePrefix = "textures/skybox/stormydays-";
 	var directions  = ["xpos", "xneg", "ypos", "yneg", "zpos", "zneg"];
 	var imageSuffix = ".png";
 	var skyGeometry = new THREE.CubeGeometry( 50000, 50000, 50000 );	
@@ -156,6 +157,10 @@ function mineCraftInit(rotation) {
 	var skyMaterial = new THREE.MeshFaceMaterial( materialArray );
 	var skyBox = new THREE.Mesh( skyGeometry, skyMaterial );
 	scene.add( skyBox );
+
+
+
+
 
 	var mesh = new THREE.Mesh( geometry, new THREE.MeshLambertMaterial( { map: texture, ambient: 0x18A9DC } ) );
 	scene.add( mesh );

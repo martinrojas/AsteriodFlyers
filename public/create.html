@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Host | Terminus</title>
+	<!-- Ensure that everything scales appropriately on a mobile device -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="css/bootstrap.css" />
+    <link rel="stylesheet" href="css/cover.css" />
+	<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+	<div class="site-wrapper">
+    	<div id="gameArea" class="site-wrapper-inner">
+    		<div class="cover">
+
+	            <h3>Open this site on your mobile device or second screen:</h3>
+	            <h2 id="gameURL">loading...</h2>
+
+	            <h3>Then click <strong>SCREEN OR MOBILE</strong> and <br/> enter the following Game ID:</h3>
+	            <h1 id="spanNewGameCode" class="gameId">loading...</h1>
+
+	            <h3 id="playersWaiting"></h3>
+	        </div>
+    	</div>
+    </div>
+
+
+    <!-- jQuery! -->
+    <script src="libs/jquery-2.0.2.min.js"></script>
+    <!-- If Socket.IO is used with Express, then the /socket.io/ path will
+        serve the proper Socket.IO javascript files used by the browser -->
+    <script src="/socket.io/socket.io.js"></script>	
+	<script src="js/three.min.js"></script>
+	<script src="js/controls/FlyControls.js"></script>
+
+    <script src="js/ImprovedNoise.js"></script>
+	<script src="js/minecraft.js"></script>
+	<script src="js/createExp.js"></script>
+</body>
+</html>
