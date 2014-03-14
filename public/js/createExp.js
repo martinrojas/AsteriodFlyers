@@ -16,7 +16,9 @@ jQuery(function ($) {
          */
         bindEvents : function() {
             IO.socket.on('connected', IO.onConnected );
-            IO.socket.on('beginNewExperience', IO.beginNewExperience );            
+            IO.socket.on('beginNewExperience', IO.beginNewExperience );
+            IO.socket.on('mobileJoinedRoom', IO.mobileJoinedRoom );  
+            IO.socket.on('launchNewExp', IO.launchNewExp );          
             IO.socket.on('hostControlTick', IO.hostControlTick);
             IO.socket.on('gameOver', IO.gameOver);
             IO.socket.on('error', IO.error );
@@ -36,6 +38,28 @@ jQuery(function ($) {
          */
         beginNewExperience : function(ioData) {
             App.Host.experienceInit(ioData);
+        },
+
+        /**
+         * A player has successfully joined the game.
+         * @param ioData {{playerName: string, gameId: int, mySocketId: int}}
+         */
+        mobileJoinedRoom : function(ioData) {
+            // When a player joins a room, do the updateWaitingScreen funciton.
+            // There are two versions of this function: one for the 'host' and
+            // another for the 'player'.
+            //
+            // So on the 'host' browser window, the App.Host.updateWiatingScreen function is called.
+            // And on the player's browser, App.Player.updateWaitingScreen is called.
+            App[App.myRole].updateWaitingScreen(ioData);
+        },
+
+        /**
+         * Both players have joined the game.
+         * @param ioData
+         */
+        launchNewExp : function(ioData) {
+            App[App.myRole].expStart(ioData);
         },
 
         /**
@@ -195,26 +219,25 @@ jQuery(function ($) {
 
                 // If two players have joined, start the game!
                 if (App.Host.numPlayersInRoom === 1) {
-                    console.log('Room is full. Almost ready!');
+                    console.log('Room is ready. Almost ready!');
 
                     // Let the server know that two players are present.
-                    IO.socket.emit('hostRoomFull',App.gameId);
+                    IO.socket.emit('hostRoomReady',App.gameId);
                 }
             },
 
             /**
              * Show the countdown screen
              */
-            gameCountdown : function() {
+            expStart : function() {
 
                 // Prepare the game screen with new HTML
-                App.$gameArea.html(App.$hostGame); 
+                App.$gameArea.html(); 
 
                 generateHeight( worldWidth, worldDepth );
                 mineCraftInit(0);
                 animate();
-
-                IO.socket.emit('hostCountdownFinished', App.gameId);               
+               
                 IO.socket.emit('hostWorldData', data);
             },            
 
