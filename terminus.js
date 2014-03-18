@@ -1,5 +1,5 @@
 var io;
-var gameSocket;
+var expSocket;
 var worldData;
 
 /**
@@ -10,22 +10,22 @@ var worldData;
  */
 exports.initGame = function(sio, socket){
     io = sio;
-    gameSocket = socket;
-    gameSocket.emit('connected', { message: "You are connected!" });
+    expSocket = socket;
+    expSocket.emit('connected', { message: "You are connected!" });
 
     // Host Events
-    gameSocket.on('hostCreateNewGame', hostCreateNewGame);
-    gameSocket.on('hostRoomFull', hostPrepareGame);
-    gameSocket.on('hostCountdownFinished', hostStartGame);
-    gameSocket.on('hostWorldData', hostWorldData);
+    expSocket.on('hostCreateNewExperience', hostCreateNewExperience);
+    expSocket.on('hostRoomReady', hostPrepareExperience);
+    expSocket.on('hostCountdownFinished', hostStartGame);
+    expSocket.on('hostWorldData', hostWorldData);
     
     // Second Screen Functions
-    gameSocket.on('screenJoinGame', screenJoinGame);
+    expSocket.on('screenJoinGame', screenJoinGame);
 
     // Player Events
-    gameSocket.on('playerJoinGame', playerJoinGame);
-    gameSocket.on('controlTick', controlTick);
-    gameSocket.on('playerRestart', playerRestart);
+    expSocket.on('mobileJoinExp', mobileJoinExp);
+    expSocket.on('controlTick', controlTick);
+    expSocket.on('playerRestart', playerRestart);
 }
 
 
@@ -36,31 +36,31 @@ exports.initGame = function(sio, socket){
    ******************************* */
 
 /**
- * The 'START' button was clicked and 'hostCreateNewGame' event occurred.
+ * The 'START' button was clicked and 'hostCreateNewExperience' event occurred.
  */
-function hostCreateNewGame() {
+function hostCreateNewExperience() {
     // Create a unique Socket.IO Room
-    var thisGameId = ( Math.random() * 1000 ) | 0;
+    var thisExperienceId = ( Math.random() * 1000 ) | 0;
 
     // Return the Room ID (gameId) and the socket ID (mySocketId) to the browser client
-    this.emit('newGameCreated', {gameId: thisGameId, mySocketId: this.id});
+    this.emit('beginNewExperience', {gameId: thisExperienceId, mySocketId: this.id});
 
     // Join the Room and wait for the players
-    this.join(thisGameId.toString());
+    this.join(thisExperienceId.toString());
 };
 
 /*
  * players have joined. Alert the host!
  * @param gameId The game ID / room ID
  */
-function hostPrepareGame(gameId) {
+function hostPrepareExperience(gameId) {
     var sock = this;
     var data = {
         mySocketId : sock.id,
         gameId : gameId
     };
     console.log("All Players Present. Preparing game...");
-    io.sockets.in(data.gameId).emit('beginNewGame', data);
+    io.sockets.in(data.gameId).emit('launchNewExp', data);
 }
 
 /*
@@ -94,7 +94,7 @@ function screenJoinGame (data) {
     var sock = this;
 
     // Look up the room ID in the Socket.IO manager object.
-    var room = gameSocket.manager.rooms["/" + data.gameId];
+    var room = expSocket.manager.rooms["/" + data.gameId];
 
     // If the room exists...
     if( room != undefined ){
@@ -128,14 +128,14 @@ function screenJoinGame (data) {
  * the gameId entered by the player.
  * @param data Contains data entered via player's input - playerName and gameId.
  */
-function playerJoinGame(data) {
+function mobileJoinExp(data) {
     //console.log('Player ' + data.playerName + 'attempting to join game: ' + data.gameId );
 
     // A reference to the player's Socket.IO socket object
     var sock = this;
 
     // Look up the room ID in the Socket.IO manager object.
-    var room = gameSocket.manager.rooms["/" + data.gameId];
+    var room = expSocket.manager.rooms["/" + data.gameId];
 
     // If the room exists...
     if( room != undefined ){
@@ -148,7 +148,7 @@ function playerJoinGame(data) {
         console.log('joining game: ' + data.gameId );
 
         // Emit an event notifying the clients that the player has joined the room.
-        io.sockets.in(data.gameId).emit('playerJoinedRoom', data);
+        io.sockets.in(data.gameId).emit('mobileJoinedRoom', data);
 
     } else {
         // Otherwise, send an error message back to the player.
@@ -168,9 +168,6 @@ function controlTick(data) {
     io.sockets.in(data.gameId).emit('hostControlTick', data);
 }
 
-function playerStart (gameId) {
-    io.sockets.in(gameId).emit('gameHasStarted');
-}
 
 /**
  * The game is over, and a player has clicked a button to restart the game.

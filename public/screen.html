@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Screens | Terminus</title>
+	<!-- Ensure that everything scales appropriately on a mobile device -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="css/bootstrap.css" />
+    <link rel="stylesheet" href="css/cover.css" />
+	<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+	<div class="site-wrapper">
+    	<div id="gameArea" class="site-wrapper-inner">
+    		<div class="cover col-xs-12 col-md-8 col-md-offset-2">            
+	            <div class="masthead">
+	                <div class="inner">
+	                    <h1>
+	                        Join Game
+	                    </h1>
+	                </div>
+	            </div>
+	            <h3>Screen Position </h3>
+	            <select id="screenOrientation" class="form-control">
+	              <option value = "F">FORWARD</option>
+	              <option value = "B">BACKWARD</option>
+	              <option value = "L">LEFT</option>
+	              <option value = "R">RIGHT</option>
+	            </select>
+	            <div class="input-group">
+	              <span class="input-group-addon">Game ID </span>
+	              <input id="inputGameId" type="number" class="form-control" placeholder="XXX">
+	            </div>
+	            <br />
+	            <a id="btnScreenStart" class="btn btn-lg btn-default">Screen</a>
+	            <div id="playerWaitingMessage"></div>
+	        </div>
+    	</div>
+    </div>
+
+    <!-- jQuery! -->
+    <script src="libs/jquery-2.0.2.min.js"></script>
+    <!-- If Socket.IO is used with Express, then the /socket.io/ path will
+        serve the proper Socket.IO javascript files used by the browser -->
+    <script src="/socket.io/socket.io.js"></script>	
+	<script src="js/three.min.js"></script>
+	<script src="js/controls/FlyControls.js"></script>
+
+    <script src="js/ImprovedNoise.js"></script>
+	<script src="js/minecraft.js"></script>
+	<script src="js/screenExp.js"></script>
+
+
+</body>
+</html>

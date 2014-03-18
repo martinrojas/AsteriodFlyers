@@ -6,111 +6,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
     <link rel="stylesheet" href="css/bootstrap.css" />
     <link rel="stylesheet" href="css/cover.css" />
-	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
     <div class="site-wrapper">
     	<div id="gameArea" class="site-wrapper-inner">
-    		
+    		<div class="cover">
+                <div class="masthead">
+                    <div class="inner">
+                        <h1>
+                            Terminus Experience
+                        </h1>
+                    </div>
+                </div>
+
+                
+
+                <div class="buttons">
+                    <a href="create.html" id="btnCreateGame" class="btn btn-lg btn-default">CREATE</a>
+                    <a href="screen.html" id="btnJoinGame" class="btn btn-lg btn-default">SCREEN</a>
+                    <a href="mobile.html" id="btnJoinGame" class="btn btn-lg btn-default">MOBILE</a>
+                </div>                
+            </div>
     	</div>
     </div>
-	<!-- Main Title Screen that appears when the page loads for the first time -->
-	<script id="intro-screen-template" type="text/template">
-		<div class="cover">
-            <div class="masthead">
-                <div class="inner">
-                    <h1>
-                        Terminus Experience
-                    </h1>
-                </div>
-            </div>
-
-            <div class="buttons">
-                <a id="btnCreateGame" class="btn btn-lg btn-default">CREATE</a>
-                <a id="btnJoinGame" class="btn btn-lg btn-default">JOIN</a>
-            </div>
-            
-        </div>
-	</script>
-
-	<script id="create-game-template" type="text/template">
-        <div class="cover">
-
-            <h3>Open this site on your mobile device:</h3>
-            <h2 id="gameURL">Error!</h2>
-
-            <h3>Then click <strong>JOIN</strong> and <br/> enter the following Game ID:</h3>
-            <h1 id="spanNewGameCode" class="gameId">Error!</h1>
-
-            <h3 id="playersWaiting"></h3>
-        </div>
-    </script>
 	
-	<!-- This scrreen appears when a player clicks "JOIN" on the Title Screen -->
-    <script id="join-game-template" type="text/template">
-        <div class="cover">
-            
-            <div class="masthead">
-                <div class="inner">
-                    <h1>
-                        Join Game
-                    </h1>
-                </div>
-            </div>
-            <h3>Screen Position </h3>
-            <select id="screenOrientation" class="form-control">
-              <option value = "F">FORWARD</option>
-              <option value = "B">BACKWARD</option>
-              <option value = "L">LEFT</option>
-              <option value = "R">RIGHT</option>
-            </select>
-            <div class="input-group">
-              <span class="input-group-addon">Game ID </span>
-              <input id="inputGameId" type="number" class="form-control" placeholder="XXX">
-            </div>
-            <br />
-            <a id="btnScreenStart" class="btn btn-lg btn-default">Screen</a>
-            <a id="btnMobileStart" class="btn btn-lg btn-default">Mobile</a>
-            <div id="playerWaitingMessage"></div>
-        </div>
-    </script>
-
-	<!-- Big Screen template -->
-	<script id="main-screen-template" type="text/template">		
-		
-	</script>
-	
-	<script id="participant-screen-template" type="text/template">
-		<div class="cover">
-            <div class="masthead">
-                <div class="inner">
-                    <h1>
-                        Controls
-                    </h1>
-                </div>
-            </div>
-			<a class="btn btn-lg btn-default gameControl" data-type="forward"><span class="glyphicon glyphicon-chevron-up"></span></a>
-			<a class="btn btn-lg btn-default gameControl" data-type="stop"><span class="glyphicon glyphicon-remove-circle"></span></a>
-			<a class="btn btn-lg btn-default gameControl" data-type="back"><span class="glyphicon glyphicon-chevron-down"></span></a>
-            <hr>
-            <a class="btn btn-lg btn-default gameControl" data-type="recalibrate">RECALIBRATE</span></a>
-            <a class="btn btn-lg btn-default gameControl" data-type="motion">MOTION</span></a>
-		</div>
-	</script>
-
-
-	<!-- jQuery! -->
-    <script src="libs/jquery-2.0.2.min.js"></script>
-    <!-- If Socket.IO is used with Express, then the /socket.io/ path will
-        serve the proper Socket.IO javascript files used by the browser -->
-    <script src="/socket.io/socket.io.js"></script>	
-	<script src="js/three.min.js"></script>
-	<script src="js/controls/FlyControls.js"></script>
-
-    <script src="js/ImprovedNoise.js"></script>
-	<script src="js/minecraft.js"></script>
-    
-    <!-- <script src="js/lensflare.js"></script> -->
-	<script src="js/game.js"></script>
 </body>
 </html>
