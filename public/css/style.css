@@ -7,8 +7,10 @@
 }
 
 #title {
-    height: 60px;
+    width: 45%;
+    min-width: 200px;
     padding-left: 20px;
+    padding-top: 20px;
 }
 
 .btn-terminus {
@@ -25,7 +27,6 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 #ee_logo {
-    position: absolute;
-    bottom: 20px;
-    left: 250px;
+   width: 45%;
+    max-width: 400px;
 }
