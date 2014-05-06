@@ -2,6 +2,31 @@
 	margin-bottom: 20px;
 }
 
-.btn-lg{
-	margin: 5px;
+#logo {
+    width: 100px;
+}
+
+#title {
+    width: 45%;
+    min-width: 200px;
+    padding-left: 20px;
+    padding-top: 20px;
+}
+
+.btn-terminus {
+  text-shadow: 0 1px 0 #000;
+  background-image: -webkit-linear-gradient(top, #000 0%, #333 100%);
+  background-image:         linear-gradient(to bottom, #000 0%, #333 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff000000', endColorstr='#ff333333', GradientType=0);
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+  background-repeat: repeat-x;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: #000;
+}
+
+#ee_logo {
+   width: 45%;
+    max-width: 400px;
 }
